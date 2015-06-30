@@ -2,13 +2,13 @@
 # Bipartite network initialization, starting from an adjacency matrix.
 # Code from François Briatte and Pedro Jordano.
 #
-bipartite.network <- function(M, modes = c("A", "P")) {
+bipartite.network <- function(M, modes = c("A", "P"), directed = FALSE) {
     require(network)
     stopifnot(length(modes) == 2)
     if(!is.matrix(M)) M <- as.matrix(M)
     x = dim(M)[1]
     y = dim(M)[2]
-    net <- network.initialize(x + y, bipartite = x, directed = FALSE)
+    net <- network.initialize(x + y, bipartite = x, directed = directed)
     net <- network.bipartite(M, net, 
                              names.eval = list(rownames(M), colnames(M)))
     x = rep(modes[1], x)
